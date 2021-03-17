@@ -1,8 +1,8 @@
 #calculator
-input("Lets do some calculations!")
+print("Lets do some calculations!")
 
-num1 = int(input("Tell me your first number: "))
-num2 = int(input("Tell me your second number: "))
+num1 = float(input("Tell me your first number: "))
+num2 = float(input("Tell me your second number: "))
 
 operation = input("Choose an operation +, -, *, / : ")
 
