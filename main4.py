@@ -10,5 +10,5 @@ while True:
     another = input("Do you want to do another conversion? ")
 
     if another.lower() != "yes" and another.lower() != "y":
+        print("Thanks till next time")
         break
-
