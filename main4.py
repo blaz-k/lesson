@@ -5,7 +5,7 @@ while True:
     km = float(input("Tell me the number in kilometers: "))
     mile = 0.621371192
 
-    print("it is "+ format(km * mile) + " miles")
+    print("it is " + format(km * mile) + " miles")
 
     another = input("Do you want to do another conversion? ")
 
