@@ -38,10 +38,7 @@ for id in face:
     if face[id] in dna:
         print(id)
         suspect.append(id)
-
-
-
 for s in people:
     if people[s] == suspect:
-        print("We got him! It is " + people())
+        print("We got him! It is " + s)
         break
