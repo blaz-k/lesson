@@ -12,6 +12,9 @@ attempts = 0
 with open("score_list.json") as score_open:
     score_list = json.loads(score_open.read())
     print("SCORES: " + str(score_list))
+    #kako jih razvrstiti za najboljse 3
+
+
 
 for score_dict in score_list:
     score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
@@ -31,7 +34,7 @@ while True:
     guess = int(input("Guess my secret number between 1-30: "))
 
     if guess == secret:
-        score_list.append({"attempts" : attempts, "date": str(datetime.datetime.now()), "player_name": player,
+        score_list.append({"attempts": attempts, "date": str(datetime.datetime.now()), "player_name": player,
                            "secret_number": secret, "wrong_guesses": wrong_guesses})
 
         with open("score_list.json", "w") as score_write:
@@ -47,5 +50,19 @@ while True:
     elif guess > secret:
         print("It is smaller!")
 
+    wrong_guesses.append(guess)
 
-wrong_guesses.append(guess)
+
+
+
+
+while True:
+    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
+
+    if select == "a" or "A":
+        play_game()
+    elif select == "b" or "B":
+        for score_dict in score_list:
+            print(score_dict["attempts"] + "attempts, date: " +score_dict.get("date"))
+    else:
+        break

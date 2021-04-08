@@ -2,7 +2,7 @@ gender = {"female": "TGAAGGACCTTC", "male": "TGCAGGAACTTC"}
 race = {"white": "AAAACCTCA", "black": "CGACTACAG", "asian": "CGCGGGCCG"}
 hair = {"black": "CCAGCAATCGC", "brown": "GCCAGTGCCG", "blonde": "TTAGCTATCGC"}
 eye = {"blue": "TTGTGGTGGC", "green": "GGGAGGTGGC", "brown": "AAGTAGTGAC"}
-face = {"square": "GCCACGG", "round": "ACCACAA", "ovale": "AGGCCTCA"}
+face = {"square": "GCCACGG", "round": "ACCACAA", "oval": "AGGCCTCA"}
 
 people = {"eva": ["female", "white", "brown", "brown", "oval"],
           "larisa": ["female", "white", "brown", "brown", "oval"],
