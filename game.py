@@ -4,30 +4,35 @@ import datetime
 import json
 import random
 
-player = input("Tell me your name: ")
-
-secret = random.randint(1, 30)
-attempts = 0
-
 
 with open("score_list.json") as score_open:
     score_list = json.loads(score_open.read())
-    score_list_sorted = sorted(score_list, key=lambda i: i["attempts"], reverse=False)
 
 
-for score_dict in score_list_sorted[:2]:
-    score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
-        score_dict.get("player_name"),
-        str(score_dict.get("attempts")),
-        score_dict.get("date"),
-        score_dict.get("secret_number"),
-        score_dict.get("wrong_guesses"))
+def best_score():
+    with open("score_list.json") as score_open:
+        score_list = json.loads(score_open.read())
+        score_list_sorted = sorted(score_list, key=lambda i: i["attempts"], reverse=False)
 
-    print(score_txt)
+    for score_dict in score_list_sorted[:2]:
+        score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
+            score_dict.get("player_name"),
+            str(score_dict.get("attempts")),
+            score_dict.get("date"),
+            score_dict.get("secret_number"),
+            score_dict.get("wrong_guesses"))
+
+        print(score_txt)
 
 
 wrong_guesses = []
 
+
+player = input("Tell me your name: ")
+
+secret = random.randint(1, 30)
+attempts = 0
+best_score()
 while True:
     attempts += 1
     guess = int(input("Guess my secret number between 1-30: "))

@@ -21,8 +21,11 @@ name = input("What is your name: ")
 print("Let's start " + str(name.upper()) + "!")
 
 guess = input("What is the capital of " + bla.capitalize() + ": ")
-
-    if guess == bla[]:
+print(bla)
+while True:
+    if guess == country_capitals[bla].capitalize():
         print("congrats")
+        break
     else:
         print("not good")
+        break
