@@ -25,14 +25,16 @@ def best_score():
         print(score_txt)
 
 
-wrong_guesses = []
+
 
 
 player = input("Tell me your name: ")
+best_score()
 
 secret = random.randint(1, 30)
 attempts = 0
-best_score()
+
+wrong_guesses = []
 while True:
     attempts += 1
     guess = int(input("Guess my secret number between 1-30: "))

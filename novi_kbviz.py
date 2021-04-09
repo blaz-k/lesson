@@ -19,15 +19,19 @@ print("Hello, i know you really love geography, so we are going to play a game! 
 
 name = input("What is your name: ")
 print("Let's start " + str(name.upper()) + "!")
-guess = input("What is the capital of " + bla + ": ").capitalize()
 
 
-while True:
-    if guess == country_capitals[bla].capitalize():
-        print("congrats")
-        break
+guess = input("What is the capital of " + bla + ": ")
 
-    else:
-        print("not good")
-        break
+
+def igra():
+    for x in range(10):
+        guess = input("What is the capital of " + bla + ": ")
+        if guess == country_capitals[bla]:
+            print("gooooood")
+        else:
+            print("not good")
+igra()
+igra()
+igra()
 
