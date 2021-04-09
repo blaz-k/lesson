@@ -13,6 +13,19 @@ country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin
  "Georgia": "Tbilisi"}
 
 bla = random.choice(list(country_capitals.keys()))
+total = 0
+
+def vprasanje():
+    bla = random.choice(list(country_capitals.keys()))
+    guess = input("What is the capital of " + bla + ": ").capitalize()
+    if guess == country_capitals[bla].capitalize():
+        print("congrats")
+
+
+    elif guess != country_capitals[bla].capitalize():
+        print("not good")
+
+
 
 print("Hello, i know you really love geography, so we are going to play a game! "
       "Let's guess capital city's of European countries")
@@ -21,17 +34,14 @@ name = input("What is your name: ")
 print("Let's start " + str(name.upper()) + "!")
 
 
-guess = input("What is the capital of " + bla + ": ")
+guess = input("What is the capital of " + bla + ": ").capitalize()
 
-
-def igra():
-    for x in range(10):
-        guess = input("What is the capital of " + bla + ": ")
-        if guess == country_capitals[bla]:
-            print("gooooood")
-        else:
-            print("not good")
-igra()
-igra()
-igra()
-
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()
+vprasanje()

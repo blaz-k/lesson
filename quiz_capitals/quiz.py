@@ -13,15 +13,18 @@ country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin
  "Georgia": "Tbilisi"}
 
 bla = random.choice(list(country_capitals.keys()))
-
+total = 0
 
 def vprasanje():
     bla = random.choice(list(country_capitals.keys()))
     guess = input("What is the capital of " + bla + ": ").capitalize()
     if guess == country_capitals[bla].capitalize():
         print("congrats")
+
+
     elif guess != country_capitals[bla].capitalize():
         print("not good")
+
 
 
 print("Hello, i know you really love geography, so we are going to play a game! "
@@ -45,6 +48,7 @@ while True:
         vprasanje()
         vprasanje()
         vprasanje()
+        total += 1
         break
 
     elif guess != country_capitals[bla].capitalize():
@@ -58,6 +62,8 @@ while True:
         vprasanje()
         vprasanje()
         vprasanje()
+        total = total
         break
 
 
+print("The final score is " + str(total))
