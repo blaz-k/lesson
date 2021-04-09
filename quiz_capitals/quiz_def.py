@@ -17,10 +17,21 @@ drz = random.choice(list(country_capitals.keys()))
 
 def drzave():
     drz = random.choice(list(country_capitals.keys()))
-    print("What is the capital city of " + drz + ":")
+    print("What is the capital city of " + drz + "?")
 
 
-drzave() + input("")
+drzave()
+
+guess = input("Answer: ")
+
+for city in drz:
+    if drz[city]:
+        print("congrats")
+        break
+    else:
+        print("Not good")
+
+
 
 
 
