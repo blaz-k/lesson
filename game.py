@@ -9,14 +9,13 @@ player = input("Tell me your name: ")
 secret = random.randint(1, 30)
 attempts = 0
 
+
 with open("score_list.json") as score_open:
     score_list = json.loads(score_open.read())
-    print("SCORES: " + str(score_list))
-    #kako jih razvrstiti za najboljse 3
+    score_list_sorted = sorted(score_list, key=lambda i: i["attempts"], reverse=False)
 
 
-
-for score_dict in score_list:
+for score_dict in score_list_sorted[:2]:
     score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
         score_dict.get("player_name"),
         str(score_dict.get("attempts")),
@@ -55,14 +54,13 @@ while True:
 
 
 
+#while True:
+ #   select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
 
-while True:
-    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
-
-    if select == "a" or "A":
-        play_game()
-    elif select == "b" or "B":
-        for score_dict in score_list:
-            print(score_dict["attempts"] + "attempts, date: " +score_dict.get("date"))
-    else:
-        break
+  #  if select == "a" or "A":
+    #    play_game()
+   # elif select == "b" or "B":
+     #   for score_dict in score_list:
+      #      print(score_dict["attempts"] + "attempts, date: " +score_dict.get("date"))
+    #else:
+     #   break
