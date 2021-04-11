@@ -26,31 +26,30 @@ for score_dict in score_quiz:
                                                                     score_dict.get("date"))
     print(score_txt)
 
+total = 0
+
 
 def vprasanje():
-    total = 0
     bla = random.choice(list(country_capitals.keys()))
     guess = input("What is the capital of " + bla + ": ").capitalize()
     if guess == country_capitals[bla].capitalize():
-        total += 1
         print("Correct")
 
     elif guess != country_capitals[bla].capitalize():
-        print("Wrong answer")
+        print("Wrong answer, it is " + str(country_capitals[bla]))
 
 
 print("Hello, i know you really love geography, so we are going to play a game! "
       "Let's guess capital city's of European countries")
 
-name = input("What is your name: ")
-print("Let's start " + str(name.upper()) + "!")
-total = 0
-
-guess = input("What is the capital of " + bla + ": ").capitalize()
-
 while True:
+    total += 1
+    name = input("What is your name: ")
+    print("Let's start " + str(name.upper()) + "!")
+
+    guess = input("What is the capital of " + bla + ": ").capitalize()
+
     if guess == country_capitals[bla].capitalize():
-        total += 1
         print("Correct")
         vprasanje()
         vprasanje()
@@ -62,7 +61,6 @@ while True:
         vprasanje()
         vprasanje()
         break
-
     elif guess != country_capitals[bla].capitalize():
         total = total
         print("Wrong answer")
@@ -76,7 +74,9 @@ while True:
         vprasanje()
         vprasanje()
         break
+
 score_quiz.append({"player_name": name, "date": str(datetime.datetime.now()), "score": total})
+
 with open("score_quiz.json", "w") as score_write:
     score_write.write(json.dumps(score_quiz))
 
