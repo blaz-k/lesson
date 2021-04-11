@@ -28,10 +28,42 @@ def best_score():
 player = input("Tell me your name: ")
 best_score()
 
+
+def play_game():
+    secret = random.randint(1, 30)
+    attempts = 0
+
+    wrong_guesses = []
+
+    while True:
+        attempts += 1
+        guess = int(input("Guess my secret number between 1-30: "))
+
+        if guess == secret:
+            score_list.append({"attempts": attempts, "date": str(datetime.datetime.now()), "player_name": player,
+                               "secret_number": secret, "wrong_guesses": wrong_guesses})
+
+            with open("score_list.json", "w") as score_write:
+                score_write.write(json.dumps(score_list))
+
+            print("Congratulations. It is really {}".format(secret))
+            print("You made it in " + str(attempts) + " attempts")
+            break
+
+        elif guess < secret:
+            print("It is bigger!")
+
+        elif guess > secret:
+            print("It is smaller!")
+
+        wrong_guesses.append(guess)
+
+
 secret = random.randint(1, 30)
 attempts = 0
 
 wrong_guesses = []
+
 while True:
     attempts += 1
     guess = int(input("Guess my secret number between 1-30: "))
@@ -56,15 +88,20 @@ while True:
     wrong_guesses.append(guess)
 
 
+def quit_game():
+    print("Thank you for playing my game")
 
 
-#while True:
- #   select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
+while True:
+    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
 
-  #  if select == "a" or "A":
-    #    play_game()
-   # elif select == "b" or "B":
-     #   for score_dict in score_list:
-      #      print(score_dict["attempts"] + "attempts, date: " +score_dict.get("date"))
-    #else:
-     #   break
+    if select == "a" or "A":
+        play_game()
+    elif select == "b" or "B":
+        best_score()
+    elif select == "c" or "C":
+        quit_game()
+    else:
+        print("Sorry i dont know want you want to choose!")
+
+7
