@@ -33,7 +33,7 @@ wrong_guesses = []
 def play_game():
     secret = random.randint(1, 30)
     attempts = 0
-    
+
     wrong_guesses = []
 
 
