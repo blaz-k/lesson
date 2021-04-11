@@ -27,13 +27,15 @@ def best_score():
 
 player = input("Tell me your name: ")
 best_score()
+wrong_guesses = []
 
 
 def play_game():
     secret = random.randint(1, 30)
     attempts = 0
-
+    
     wrong_guesses = []
+
 
     while True:
         attempts += 1
@@ -61,7 +63,7 @@ def play_game():
 
 secret = random.randint(1, 30)
 attempts = 0
-
+best_score()
 wrong_guesses = []
 
 while True:
@@ -93,15 +95,14 @@ def quit_game():
 
 
 while True:
-    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ")
+    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ").capitalize()
 
-    if select == "a" or "A":
+    if select == "A":
         play_game()
-    elif select == "b" or "B":
+    elif select == "B":
         best_score()
-    elif select == "c" or "C":
+    elif select == "C":
         quit_game()
+        break
     else:
         print("Sorry i dont know want you want to choose!")
-
-7
