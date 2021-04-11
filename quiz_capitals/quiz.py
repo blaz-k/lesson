@@ -1,4 +1,6 @@
 import random
+import datetime
+import json
 
 country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin", "Switzerland": "Bern",
 "Slovakia": "Bratislava", "Belgium": "Brussels", "Romania": "Bucharest", "Hungary": "Budapest", "Moldova": "Chisinau",
@@ -13,18 +15,28 @@ country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin
  "Georgia": "Tbilisi"}
 
 bla = random.choice(list(country_capitals.keys()))
-total = 0
+
+
+with open("score_quiz.json") as score_open:
+    score_quiz = json.loads(score_open.read())
+
+for score_dict in score_quiz:
+    score_txt = "Player {0} had a total of {1} points on {2}.".format(score_dict.get("player_name"),
+                                                                    str(score_dict.get("score")),
+                                                                    score_dict.get("date"))
+    print(score_txt)
+
 
 def vprasanje():
+    total = 0
     bla = random.choice(list(country_capitals.keys()))
     guess = input("What is the capital of " + bla + ": ").capitalize()
     if guess == country_capitals[bla].capitalize():
-        print("congrats")
-
+        total += 1
+        print("Correct")
 
     elif guess != country_capitals[bla].capitalize():
-        print("not good")
-
+        print("Wrong answer")
 
 
 print("Hello, i know you really love geography, so we are going to play a game! "
@@ -32,38 +44,41 @@ print("Hello, i know you really love geography, so we are going to play a game! 
 
 name = input("What is your name: ")
 print("Let's start " + str(name.upper()) + "!")
-
+total = 0
 
 guess = input("What is the capital of " + bla + ": ").capitalize()
 
 while True:
     if guess == country_capitals[bla].capitalize():
-        print("congrats")
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
         total += 1
+        print("Correct")
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
         break
 
     elif guess != country_capitals[bla].capitalize():
-        print("not good")
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
-        vprasanje()
         total = total
+        print("Wrong answer")
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
+        vprasanje()
         break
+score_quiz.append({"player_name": name, "date": str(datetime.datetime.now()), "score": total})
+with open("score_quiz.json", "w") as score_write:
+    score_write.write(json.dumps(score_quiz))
 
 
 print("The final score is " + str(total))

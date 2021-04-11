@@ -25,9 +25,6 @@ def best_score():
         print(score_txt)
 
 
-
-
-
 player = input("Tell me your name: ")
 best_score()
 
