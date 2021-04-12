@@ -26,6 +26,7 @@ def best_score():
 
 
 player = input("Tell me your name: ")
+#levels = input("Do you want to play on: HARD (A), EASY(B)").capitalize()
 best_score()
 wrong_guesses = []
 
@@ -104,4 +105,4 @@ while True:
         quit_game()
         break
     else:
-        print("Sorry i dont know want you want to choose!")
+        print("Sorry i don't know want you want to choose!")
