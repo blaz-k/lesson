@@ -66,28 +66,7 @@ attempts = 0
 best_score()
 
 
-while True:
-    attempts += 1
-    guess = int(input("Guess my secret number between 1-30: "))
-
-    if guess == secret:
-        score_list.append({"attempts": attempts, "date": str(datetime.datetime.now()), "player_name": player,
-                           "secret_number": secret, "wrong_guesses": wrong_guesses})
-
-        with open("score_list.json", "w") as score_write:
-            score_write.write(json.dumps(score_list))
-
-        print("Congratulations. It is really {}".format(secret))
-        print("You made it in " + str(attempts) + " attempts")
-        break
-
-    elif guess < secret:
-        print("It is bigger!")
-
-    elif guess > secret:
-        print("It is smaller!")
-
-    wrong_guesses.append(guess)
+play_game()
 
 
 def quit_game():
