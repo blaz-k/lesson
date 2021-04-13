@@ -26,15 +26,13 @@ def best_score():
 
 
 player = input("Tell me your name: ")
-#levels = input("Do you want to play on: HARD (A), EASY(B)").capitalize()
-best_score()
+
 wrong_guesses = []
 
 
-def play_game():
+def play_game(level="easy"):
     secret = random.randint(1, 30)
     attempts = 0
-
     wrong_guesses = []
 
     while True:
@@ -52,18 +50,13 @@ def play_game():
             print("You made it in " + str(attempts) + " attempts")
             break
 
-        elif guess < secret:
+        elif guess < secret and level == "easy":
             print("It is bigger!")
 
-        elif guess > secret:
+        elif guess > secret and level == "easy":
             print("It is smaller!")
 
         wrong_guesses.append(guess)
-
-
-secret = random.randint(1, 30)
-attempts = 0
-best_score()
 
 
 play_game()
@@ -73,15 +66,21 @@ def quit_game():
     print("Thank you for playing my game")
 
 
-while True:
-    select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ").capitalize()
+def main():
+    while True:
+        select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ").capitalize()
 
-    if select == "A":
-        play_game()
-    elif select == "B":
-        best_score()
-    elif select == "C":
-        quit_game()
-        break
-    else:
-        print("Sorry i don't know want you want to choose!")
+        if select == "A":
+            level = input("Do you want to play: easy/hard")
+            play_game(level=level)
+        elif select == "B":
+            best_score()
+        elif select == "C":
+            quit_game()
+            break
+        else:
+            print("Sorry i don't know want you want to choose!")
+
+
+if __name__ == "__main__":
+    main()
