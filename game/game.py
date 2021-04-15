@@ -81,6 +81,7 @@ def best_score():
             score_dict.get("wrong_guesses"))
 
         print(score_txt)
+        return score_list_sorted[:3]
 
 
 def main():
