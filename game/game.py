@@ -77,7 +77,7 @@ def best_score():
             score_dict.get("player_name"),
             str(score_dict.get("attempts")),
             score_dict.get("date"),
-            score_dict.get("secret_number"),
+            score_dict.get("secret"),
             score_dict.get("wrong_guesses"))
 
         print(score_txt)
@@ -86,7 +86,7 @@ def best_score():
 
 def main():
     while True:
-        select = input("Do you want to: Play another game? (A), see the scores? (B), Quit? (C) ").capitalize()
+        select = input("Do you want to: Play a game? (A), see the scores? (B), Quit? (C) ").capitalize()
 
         if select == "A":
             level = input("Do you want to play: easy/hard")
@@ -96,7 +96,7 @@ def main():
                 result_obj = Result(player_name=score_dict.get("player_name"),
                                     attempts=score_dict.get("attempts"),
                                     date=score_dict.get("date"),
-                                    secret=score_dict.get("secret_number"),
+                                    secret=score_dict.get("secret"),
                                     wrong_guesses=score_dict.get("Wrong_guesses"))
 
                 score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
@@ -113,9 +113,6 @@ def main():
             break
         else:
             print("Sorry i don't know want you want to choose!")
-
-
-play_game()
 
 
 if __name__ == "__main__":
