@@ -2,7 +2,6 @@
 from datetime import datetime
 import json
 import random
-now = datetime.now()
 
 
 class Result:
@@ -12,10 +11,6 @@ class Result:
         self.date = date
         self.secret = secret
         self.wrong_guesses = wrong_guesses
-
-
-
-wrong_guesses = []
 
 
 def play_game(level="easy"):
@@ -32,7 +27,7 @@ def play_game(level="easy"):
         if guess == secret:
             result_obj = Result(attempts=attempts,
                                 player_name=player_name,
-                                date=str(now.strftime("%m/%b/%Y, %H:%M:%S")),
+                                date=str(datetime.now().strftime("%m/%b/%Y, %H:%M:%S")),
                                 secret=secret,
                                 wrong_guesses=wrong_guesses)
 
@@ -51,10 +46,10 @@ def play_game(level="easy"):
         elif guess > secret and level == "easy":
             print("It is smaller!")
 
+        elif guess != secret and level == "hard":
+            print("It is incorrect number!")
+
         wrong_guesses.append(guess)
-
-
-wrong_guesses = []
 
 
 def quit_game():
@@ -72,16 +67,7 @@ def best_score():
         score_list = json.loads(score_open.read())
         score_list_sorted = sorted(score_list, key=lambda i: i["attempts"], reverse=False)
 
-    for score_dict in score_list_sorted[:3]:
-        score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
-            score_dict.get("player_name"),
-            str(score_dict.get("attempts")),
-            score_dict.get("date"),
-            score_dict.get("secret"),
-            score_dict.get("wrong_guesses"))
-
-        print(score_txt)
-        return score_list_sorted[:3]
+    return score_list_sorted[:3]
 
 
 def main():
@@ -89,7 +75,7 @@ def main():
         select = input("Do you want to: Play a game? (A), see the scores? (B), Quit? (C) ").capitalize()
 
         if select == "A":
-            level = input("Do you want to play: easy/hard")
+            level = input("Do you want to play: easy/hard : ")
             play_game(level=level)
         elif select == "B":
             for score_dict in best_score():
@@ -97,17 +83,16 @@ def main():
                                     attempts=score_dict.get("attempts"),
                                     date=score_dict.get("date"),
                                     secret=score_dict.get("secret"),
-                                    wrong_guesses=score_dict.get("Wrong_guesses"))
+                                    wrong_guesses=score_dict.get("wrong_guesses"))
 
                 score_txt = "Player {0} had {1} attempts on {2}. The secret number was {3}. The wrong guesses were: {4}".format(
-                    score_dict.get("player_name"),
-                    str(score_dict.get("attempts")),
-                    score_dict.get("date"),
-                    score_dict.get("secret_number"),
-                    score_dict.get("wrong_guesses"))
-
+                    result_obj.player_name,
+                    str(result_obj.attempts),
+                    result_obj.date,
+                    result_obj.secret,
+                    result_obj.wrong_guesses)
                 print(score_txt)
-            best_score()
+
         elif select == "C":
             quit_game()
             break
