@@ -27,7 +27,7 @@ def result():
         response = make_response(render_template("result.html", result=result))
 
         secret = randint(1, 30)
-        response.set.cookie("secret", str(secret))
+        response.set_cookie("secret", str(secret))
         return response
 
     elif guess < secret:
