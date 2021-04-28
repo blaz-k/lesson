@@ -19,11 +19,13 @@ def result():
 
         response = make_response(render_template("result.html", result=result))
         return response
-    else:
-        result = "not correct"
+    elif guess < secret:
+        result = "too SMALL"
+    elif guess > secret:
+        result = "too BIG"
 
-        response = make_response(render_template("result.html", result=result))
-        return response
+    response = make_response(render_template("result.html", result=result))
+    return response
 
 
 if __name__ == "__main__":
