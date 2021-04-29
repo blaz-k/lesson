@@ -21,16 +21,15 @@ country = random.choice(list(country_capitals.keys()))
 @app.route("/", methods=["GET"])
 def index():
     country = random.choice(list(country_capitals.keys()))
-    response = make_response(render_template("index.html"))
+    response = make_response(render_template("index.html", guess=country))
 
     return response
 
 
 @app.route("/result", methods=["POST"])
 def result():
-
     guess = request.form.get("guess")
-    response = make_response(render_template("result.html", guess=country))
+    response = make_response(render_template("result.html"))
     return response
 
 
