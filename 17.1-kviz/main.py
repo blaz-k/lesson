@@ -22,6 +22,7 @@ country = random.choice(list(country_capitals.keys()))
 def index():
     country = random.choice(list(country_capitals.keys()))
     response = make_response(render_template("index.html"))
+
     return response
 
 
@@ -29,8 +30,8 @@ def index():
 def result():
 
     guess = request.form.get("guess")
-
-    return render_template("result.html")
+    response = make_response(render_template("result.html", guess=country))
+    return response
 
 
 if __name__ == "__main__":
