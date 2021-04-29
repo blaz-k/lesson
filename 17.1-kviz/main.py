@@ -33,7 +33,7 @@ def result():
 
     if guess == country_capitals.get(country):
         result = "correct"
-        response = make_response(render_template("result.html", country=response))
+        response = make_response(render_template("result.html", result=result))
 
     elif guess != country_capitals.get(country):
         result = "Not good"
