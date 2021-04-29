@@ -20,8 +20,8 @@ country = random.choice(list(country_capitals.keys()))
 
 @app.route("/", methods=["GET"])
 def index():
-    country = random.choice(list(country_capitals.keys()))
-    response = make_response(render_template("index.html", guess=country))
+    guess = random.choice(list(country_capitals.keys()))
+    response = make_response(render_template("index.html", country=guess))
 
     return response
 
@@ -30,6 +30,15 @@ def index():
 def result():
     guess = request.form.get("guess")
     response = make_response(render_template("result.html"))
+
+    if guess == country_capitals.get(country):
+        result = "correct"
+        response = make_response(render_template("result.html", country=response))
+
+    elif guess != country_capitals.get(country):
+        result = "Not good"
+
+    response = make_response(render_template("result.html", result=result))
     return response
 
 
