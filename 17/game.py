@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def index():
     existing_secret = request.cookies.get("secret")
-    response = make_response(render_template("index.html"))
+    response = make_response(render_template("game.html"))
 
     if not existing_secret:
         secret = randint(1, 10)
