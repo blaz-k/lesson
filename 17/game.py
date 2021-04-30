@@ -9,7 +9,6 @@ def index():
     existing_secret = request.cookies.get("secret")
     response = make_response(render_template("index.html"))
 
-
     if not existing_secret:
         secret = randint(1, 10)
         response.set_cookie("secret", str(secret))
@@ -25,15 +24,14 @@ def result():
     attempts = int(request.cookies.get("attempts"))
     attempts += 1
 
-
     if guess == secret:
-        result = "Correct"
+        result = "correct"
 
         response = make_response(render_template("result.html", result=result, attempts=attempts))
 
         secret = randint(1, 10)
         response.set_cookie("secret", str(secret))
-        response.set_cookie("attemtps", "0")
+        response.set_cookie("attempts", "0")
         return response
 
     elif guess < secret:
@@ -42,7 +40,7 @@ def result():
         result = "too BIG"
 
     response = make_response(render_template("result.html", result=result, attempts=attempts))
-    response.set_cookie("attempts", str("attempts"))
+    response.set_cookie("attempts", str(attempts))
 
     return response
 
