@@ -35,16 +35,16 @@ def result():
     guess_city = request.form.get("guess")
     correct_city = country_capitals.get(country)
 
-    if guess_city == correct_city:
+    if guess_city.lower() == correct_city.lower():
         result = "correct"
-        response = make_response(render_template("result.html", result=result))
-        country = random.choice(list(country_capitals.keys()))
-        response.set_cookie("country", country)
-        return response
+
     else:
-        result = "not good"
-        response = make_response(render_template("result.html", result=result))
-        return response
+        result = "not correct. The correct capital is {}!".format(correct_city.upper())
+    response = make_response(render_template("result.html", result=result))
+    new_country = random.choice(list(country_capitals.keys()))
+    response.set_cookie("country", new_country)
+
+    return response
 
 
 if __name__ == "__main__":
