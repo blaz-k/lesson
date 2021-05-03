@@ -19,9 +19,13 @@ country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin
 @app.route("/", methods=["GET"])
 def index():
     country = random.choice(list(country_capitals.keys()))
-    response = make_response(render_template("index.html", country=country))
-    print("guess: ".format(country))
-    print("counyt: ".format(response))
+    existing_country = request.cookies.get("country")
+    response = make_response(render_template("index.html"))
+
+    if not existing_country:
+        country = random.choice(list(country_capitals.keys()))
+        response.set_cookie("country", country)
+
     return response
 
 
@@ -36,7 +40,7 @@ def result():
         result = "correct"
 
         country = random.choice(list(country_capitals.keys()))
-        response.set.cookie("country", country)
+        response.set_cookie("country", country)
 
         return response
     elif guess != country:
