@@ -18,37 +18,33 @@ country_capitals = {"Greece": "Athens", "Serbia": "Belgrade", "Germany": "Berlin
 
 @app.route("/", methods=["GET"])
 def index():
-    country = random.choice(list(country_capitals.keys()))
     existing_country = request.cookies.get("country")
-    response = make_response(render_template("index.html"))
 
-    if not existing_country:
-        country = random.choice(list(country_capitals.keys()))
-        response.set_cookie("country", country)
-
+    if existing_country:
+        response = make_response(render_template("index.html", country=existing_country))
+    else:
+        new_country = random.choice(list(country_capitals.keys()))
+        response = make_response(render_template("index.html", country=new_country))
+        response.set_cookie("country", new_country)
     return response
 
 
 @app.route("/result", methods=["POST"])
 def result():
     country = request.cookies.get("country")
-    guess = request.form.get("guess")
-    response = make_response(render_template("result.html"))
+    guess_city = request.form.get("guess")
+    correct_city = country_capitals.get(country)
 
-    if guess == country:
-        print("if stavek: ")
+    if guess_city == correct_city:
         result = "correct"
-
+        response = make_response(render_template("result.html", result=result))
         country = random.choice(list(country_capitals.keys()))
         response.set_cookie("country", country)
-
         return response
-    elif guess != country:
-        print("elif")
+    else:
         result = "not good"
-
-    response = make_response(render_template("result.html", result=result))
-    return response
+        response = make_response(render_template("result.html", result=result))
+        return response
 
 
 if __name__ == "__main__":
