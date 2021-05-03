@@ -24,7 +24,10 @@ def kg():
 
 @app.route("/meters", methods=["POST"])
 def meters():
-    return render_template("meters.html")
+    number = request.form.get("number")
+    result = number * mile
+    response = make_response(render_template("result.html", result=result))
+    return response
 
 
 @app.route("/results", methods=["POST"])
