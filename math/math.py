@@ -27,6 +27,11 @@ def meters():
     return render_template("meters.html")
 
 
+@app.route("/results", methods=["POST"])
+def results():
+    return render_template("results.html")
+
+
 
 
 
