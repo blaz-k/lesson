@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from sqla_wrapper import SQLAlchemy
+
 
 db = SQLAlchemy("sqlite:///localhost.sqlite")
 
@@ -12,13 +13,26 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
 
 
+db.create_all()
 
 
-
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    user = db.query(User).first()
+
+    return render_template("index.html", user=user)
+
+
+@app.route("/result", methods=["POST"])
+def result():
+    name = request.form.get("username")
+    email = request.form.get("email")
+    user_obj = User(username=name, email=email)
+    db.add(user_obj)
+    db.commit()
+
+    return render_template("result.html", username=name, email=email)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(use_reloader=True)
