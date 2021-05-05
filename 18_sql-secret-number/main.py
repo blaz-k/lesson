@@ -13,9 +13,17 @@ def index():
 
 @app.route("/result", methods=["POST"])
 def result():
+    secret_number = randint(1, 10)
     guess = int(request.form.get("guess"))
 
-    return render_template("result.html")
+    if guess == secret_number:
+        result = "Correct"
+    elif guess < secret_number:
+        result = "It is bigger"
+    elif guess > secret_number:
+        result = "It is smaller"
+
+    return result
 
 
 if __name__ == "__main__":
