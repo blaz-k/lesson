@@ -8,25 +8,31 @@ db.create_all()
 
 @app.route("/", methods=["GET"])
 def index():
+    user = db.query(User)
     return render_template("index.html")
 
 
 @app.route("/result", methods=["POST"])
 def result():
     secret_number = randint(1, 10)
+    print(secret_number)
     guess = int(request.form.get("guess"))
-    user = User(secret_number=secret_number)
-    db.add(user)
+    print(guess)
+    user = request.form.get("username")
+    print(user)
+    existing_user = User(username=user)
 
-
+    if not existing_user:
+        new_user = User(username=user)
+        new_secret = randint(1, 10)
+        db.commit(new_user, new_secret)
+        db.add()
     if guess == secret_number:
-        result = "Correct"
-    elif guess < secret_number:
-        result = "It is bigger"
-    elif guess > secret_number:
-        result = "It is smaller"
+        result = "CORRECT"
+    else:
+        result = "WRONG"
 
-    return result
+    return render_template("result.html", result=result)
 
 
 if __name__ == "__main__":

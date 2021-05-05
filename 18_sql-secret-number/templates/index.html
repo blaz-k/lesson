@@ -1,10 +1,17 @@
 {% extends "base.html" %}
-{% block title}Homepage{endbolck title %}
+
+
+{% block title %}Homepage{% endblock title %}
+
   {% block content %}
     <h2>Welcome to the guess the secret number SQL edition</h2>
     <br>
-    <form method="post" action="/result" class="form">
-        <input type="text" name="guess" placeholder="Enter your number">
+    <form method="post" action="/result">
+        <input type="text" name="username" placeholder="Enter your username">
+        <br>
+        <br>
+        <input type="number" name="guess" placeholder="Enter your number">
+        <br>
         <br>
         <button type="submit">Submit</button>
     </form>
