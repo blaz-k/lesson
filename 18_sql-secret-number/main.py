@@ -15,6 +15,9 @@ def index():
 def result():
     secret_number = randint(1, 10)
     guess = int(request.form.get("guess"))
+    user = User(secret_number=secret_number)
+    db.add(user)
+
 
     if guess == secret_number:
         result = "Correct"
