@@ -24,7 +24,7 @@ def result():
     print(existing_user)
 
     if not existing_user:
-       # new_secret = randint(1, 10)
+       # new_secret = randint(1, 10)  # nevem tocno kje je problem tukaj
         new_user = User(username=user, secret_number=secret)
         print(new_user)
         db.add(new_user)
