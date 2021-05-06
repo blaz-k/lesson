@@ -19,8 +19,9 @@ db.create_all()
 
 @app.route("/", methods=["GET"])
 def index():
+    messages = db.query(Message).all()
 
-    return render_template("index.html")
+    return render_template("index.html", messages=messages)
 
 
 @app.route("/add-message", methods=["POST"])

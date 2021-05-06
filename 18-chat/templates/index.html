@@ -16,6 +16,15 @@
             <br>
             <br>
             <button type="submit">Submit</button>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+            {% for message in messages %}
+            <p>
+                {{message.author}}:
+               {{message.text}}
+            </p>
+
+            {% endfor %}
         </form>
     </body>
 </html>
