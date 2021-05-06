@@ -13,26 +13,24 @@ def index():
 
 @app.route("/result", methods=["POST"])
 def result():
+    user = request.form.get("username")
+    print(user)
     secret = randint(1, 10)
     print(secret)
     guess = int(request.form.get("guess"))
     print(guess)
-    user = request.form.get("username")
-    print(user)
+
     existing_user = db.query(User).filter_by(username=user).first()
     print(existing_user)
 
     if not existing_user:
-        new_secret = randint(1, 10)
-        print(new_secret)
-        new_user = User(username=user, secret_number=new_secret)
+        new_user = User(username=user, secret_number=secret)
         print(new_user)
         db.add(new_user)
         db.commit()
 
     if guess == secret:
         result = "CORRECT"
-
 
     else:
         result = "WRONG"
