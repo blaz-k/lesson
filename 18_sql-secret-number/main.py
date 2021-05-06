@@ -27,6 +27,8 @@ def result():
 
     if guess == secret:
         result = "CORRECT"
+
+
     else:
         result = "WRONG"
 

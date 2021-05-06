@@ -29,8 +29,10 @@ def add_message():
     username = request.form.get("username")
     message_text = request.form.get("message")
     message = Message(author=username, text=message_text)
+
     db.add(message)
     db.commit()
+
     return redirect(url_for("index"))
 
 
