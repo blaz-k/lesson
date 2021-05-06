@@ -19,7 +19,7 @@ def result():
     print(guess)
     user = request.form.get("username")
     print(user)
-    existing_user = User(username=user, secret_number=secret)
+    existing_user = db.query(User).filter_by(username=user).first()
     print(existing_user)
 
     if not existing_user:
