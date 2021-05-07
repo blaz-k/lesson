@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request
 from models import User, db
 from random import randint
 
@@ -13,25 +13,22 @@ def index():
 
 @app.route("/result", methods=["POST"])
 def result():
-    user = request.form.get("username")
-    print(user)
-    secret = randint(1, 10)
-    print(secret)
+    username = request.form.get("username")# tuki zaprosim za ime od userja
+    secret = randint(1, 10) #tuki dolocimo random secret
     guess = int(request.form.get("guess"))
-    print(guess)
 
-    existing_user = db.query(User).filter_by(username=user).first()
-    print(existing_user)
+    user = db.query(User).filter_by(username=username).first()
 
-    if not existing_user:
-       # new_secret = randint(1, 10)  # nevem tocno kje je problem tukaj
-        new_user = User(username=user, secret_number=secret)
-        print(new_user)
-        db.add(new_user)
+    if not user: #ce ne obstaja:
+        user = User(username=username, secret_number=secret)
+
+        db.add(user)
         db.commit()
 
-    if guess == secret:
+    if guess == user.secret_number:
         result = "CORRECT"
+        user.secret_number = randint(1, 10)
+        user.save()
 
     else:
         result = "WRONG"
