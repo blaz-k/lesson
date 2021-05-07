@@ -5,6 +5,7 @@
 
   {% block content %}
     <h2>Welcome to the guess the secret number SQL edition</h2>
+    <h4>Guess the number between 1 and 10</h4>
     <br>
     <form action="/result" method="post" >
         <input type="text" name="username" placeholder="Enter your username">
@@ -13,6 +14,6 @@
         <input type="number" name="guess" placeholder="Enter your number">
         <br>
         <br>
-        <button type="submit">Submit</button>
+        <button type="submit" >Submit</button>
     </form>
 {% endblock content %}
