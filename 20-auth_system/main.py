@@ -23,9 +23,16 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+
+    if request.method == "GET":
+        return render_template("login.html")
+    #ce je email isti kot ga najde v bazi potem je uredu cene pa se mora registrirati
+    #ce je password_hash pravilen potem ok ce ni potem je password ali email napacen
+    elif request.method == "POST":
+
+
 
 
 @app.route("/registration", methods=["GET", "POST"])
