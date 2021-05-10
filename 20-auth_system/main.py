@@ -7,18 +7,18 @@ db = SQLAlchemy(db_url)
 
 
 class User(db.Model):
-    email = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String, unique=False)
     repeat = db.Column(db.String, unique=False)
 
 
 app = Flask(__name__)
 
-
 db.create_all()
 
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
 
@@ -32,6 +32,9 @@ def registration():
         email = request.form.get("user-email")
         password = request.form.get("password")
         repeat = request.form.get("repeat")
+        print(email)
+        print(password)
+        print(repeat)
 
         existing_user = db.query(User).filter_by(email=email).first()
         # ce user ze obstaja napisi da ze obstaja
@@ -41,6 +44,7 @@ def registration():
             #ce user se ne obstaja, potem preglej ce se ujema password
             if password == repeat:
                 new_user = User(email=email, password=password)
+                print(new_user)
                 new_user.save()
             else:
                 return "ERROR: Passwords do not match!"
