@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from sqla_wrapper import SQLAlchemy
+from hashlib import sha256
 
 db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
 db = SQLAlchemy(db_url)
@@ -10,7 +11,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String, unique=False)
-    repeat = db.Column(db.String, unique=False)
 
 
 app = Flask(__name__)
@@ -23,6 +23,11 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/login", methods=["GET"])
+def login():
+    return render_template("login.html")
+
+
 @app.route("/registration", methods=["GET", "POST"])
 def registration():
     if request.method == "GET":
@@ -32,9 +37,6 @@ def registration():
         email = request.form.get("user-email")
         password = request.form.get("password")
         repeat = request.form.get("repeat")
-        print(email)
-        print(password)
-        print(repeat)
 
         existing_user = db.query(User).filter_by(email=email).first()
         # ce user ze obstaja napisi da ze obstaja
@@ -43,8 +45,8 @@ def registration():
         else:
             #ce user se ne obstaja, potem preglej ce se ujema password
             if password == repeat:
-                new_user = User(email=email, password=password)
-                print(new_user)
+                password_hash = sha256(password.encode("utf-8")).hexdigest()
+                new_user = User(email=email, password=password_hash)
                 new_user.save()
             else:
                 return "ERROR: Passwords do not match!"
