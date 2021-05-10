@@ -29,7 +29,7 @@ def registration():
         return render_template("registration.html")
 
     elif request.method == "POST":
-        email = request.form.get("user_email")
+        email = request.form.get("user-email")
         password = request.form.get("password")
         repeat = request.form.get("repeat")
 
