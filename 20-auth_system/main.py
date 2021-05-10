@@ -38,10 +38,10 @@ def registration():
         if existing_user:
             return "ERROR: This email already exists!"
         else:
-            pass
     #ce user se ne obstaja, potem preglej ce se ujema password
             if password == repeat:
-                pass
+                new_user = User(email=email, password=password)
+                new_user.save()
             else:
                 return "ERROR: Passwords do not match!"
     return redirect(url_for("home"))
