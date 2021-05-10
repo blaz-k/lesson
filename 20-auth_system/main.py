@@ -38,7 +38,7 @@ def registration():
         if existing_user:
             return "ERROR: This email already exists!"
         else:
-    #ce user se ne obstaja, potem preglej ce se ujema password
+            #ce user se ne obstaja, potem preglej ce se ujema password
             if password == repeat:
                 new_user = User(email=email, password=password)
                 new_user.save()
