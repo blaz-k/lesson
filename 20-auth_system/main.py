@@ -50,14 +50,14 @@ def login():
             existing_user.save()
             print("session_token: {}".format(session_token))
 
-            response = make_response(redirect(url_for("home")))
+            response = make_response(redirect(url_for("chat")))
             response.set_cookie("session", session_token)
             print("response: {}".format(response))
             # ce je password_hash pravilen potem ok ce ni potem je password ali email napacen
             return response
         else:
             return "Password or username not correct!"
-    return redirect(url_for("chat"))
+    #return redirect(url_for("chat"))
 
 
 @app.route("/registration", methods=["GET", "POST"])
