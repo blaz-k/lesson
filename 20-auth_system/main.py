@@ -94,25 +94,21 @@ def registration():
                 return "ERROR: Passwords do not match!"
     return redirect(url_for("home"))
 
+
 #chitchat
 @app.route("/chat", methods=["GET", "POST"])
 def chat():
     if request.method == "GET":
         messages = db.query(User).all()
         return render_template("chat.html", messages=messages)
-    else:
-        pass
+    elif request.method == "POST":
+        username = request.form.get("username")
+        message_text = request.form.get("message")
 
+        message = User(author=username, text=message_text)
+        message.save()
 
-@app.route("/add-message", methods=["POST"])
-def add_message():
-    username = request.form.get("username")
-    message_text = request.form.get("message")
-
-    message = User(author=username, text=message_text)
-    message.save()
-
-    return redirect(url_for("chat"))
+        return redirect(url_for("chat"))
 
 
 if __name__ == "__main__":
