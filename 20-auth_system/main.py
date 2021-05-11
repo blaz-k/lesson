@@ -13,6 +13,8 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String, unique=False)
     session_token = db.Column(db.String, unique=False)
+    author = db.Column(db.String)
+    text = db.Column(db.String)
 
 
 app = Flask(__name__)
@@ -57,7 +59,7 @@ def login():
             return response
         else:
             return "Password or username not correct!"
-    #return redirect(url_for("chat"))
+    return redirect(url_for("chat"))
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -92,13 +94,25 @@ def registration():
                 return "ERROR: Passwords do not match!"
     return redirect(url_for("home"))
 
-
+#chitchat
 @app.route("/chat", methods=["GET", "POST"])
 def chat():
     if request.method == "GET":
-        return render_template("chat.html")
+        messages = db.query(User).all()
+        return render_template("chat.html", messages=messages)
     else:
         pass
+
+
+@app.route("/add-message", methods=["POST"])
+def add_message():
+    username = request.form.get("username")
+    message_text = request.form.get("message")
+
+    message = User(author=username, text=message_text)
+    message.save()
+
+    return redirect(url_for("chat"))
 
 
 if __name__ == "__main__":
