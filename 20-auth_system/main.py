@@ -35,17 +35,23 @@ def login():
     elif request.method == "POST":
         email = request.form.get("user-email").lower()
         password = request.form.get("password")
+        print(email)
+        print(password)
 
         password_hash = sha256(password.encode("utf-8")).hexdigest()
         existing_user = db.query(User).filter_by(email=email, password=password_hash)
-
+        print(password_hash)
+        print(existing_user)
         if existing_user:
             session_token = str(uuid.uuid4())
             existing_user.session_token = session_token
             existing_user.save()
+            print(session_token)
+
 
             response = make_response(redirect(url_for("home")))
             response.set_cookie("session", session_token)
+            print(response)
             # ce je password_hash pravilen potem ok ce ni potem je password ali email napacen
             return render_template("chat.html")
         else:
@@ -61,9 +67,13 @@ def registration():
         email = request.form.get("user-email")
         password = request.form.get("password")
         repeat = request.form.get("repeat")
+        print(email)
+        print(password)
+        print(repeat)
 
         existing_user = db.query(User).filter_by(email=email).first()
         # ce user ze obstaja napisi da ze obstaja
+        print(existing_user)
         if existing_user:
             return "ERROR: This email already exists!"
         else:
@@ -72,6 +82,8 @@ def registration():
                 password_hash = sha256(password.encode("utf-8")).hexdigest()
                 new_user = User(email=email, password=password_hash)
                 new_user.save()
+                print(password)
+                print(new_user)
             else:
                 return "ERROR: Passwords do not match!"
     return redirect(url_for("home"))
@@ -79,7 +91,10 @@ def registration():
 
 @app.route("/chat", methods=["GET", "POST"])
 def chat():
-    return render_template("chat.html")
+    if request.method == "GET":
+        return render_template("chat.html")
+    else:
+        pass
 
 
 if __name__ == "__main__":
