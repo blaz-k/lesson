@@ -33,13 +33,13 @@ def login():
 
         #ce je email isti kot ga najde v bazi potem je uredu cene pa se mora registrirati
     elif request.method == "POST":
-        email = request.form.get("user-email").lower()
+        email = request.form.get("user-email")
         password = request.form.get("password")
         print(email)
         print(password)
 
         password_hash = sha256(password.encode("utf-8")).hexdigest()
-        existing_user = db.query(User).filter_by(email=email, password=password_hash)
+        existing_user = db.query(User).filter_by(email=email, password=password_hash).first()
         print(password_hash)
         print(existing_user)
         if existing_user:
@@ -48,12 +48,11 @@ def login():
             existing_user.save()
             print(session_token)
 
-
             response = make_response(redirect(url_for("home")))
             response.set_cookie("session", session_token)
             print(response)
             # ce je password_hash pravilen potem ok ce ni potem je password ali email napacen
-            return render_template("chat.html")
+            return response
         else:
             return "Password or username not correct!"
 
