@@ -57,10 +57,6 @@ def registration():
     return redirect(url_for("home"))
 
 
-        #moramo zakamuflirat password
-
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -85,7 +81,7 @@ def login():
         else:
             return "Username or password is not correct"
 
-    return render_template("login.html")
+    return redirect(url_for("home"))
 
 
 
