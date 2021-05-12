@@ -35,26 +35,18 @@ def login():
 
         #ce je email isti kot ga najde v bazi potem je uredu cene pa se mora registrirati
     elif request.method == "POST":
-        print("ELIF OD LOGINA: ")
         email = request.form.get("user-email")
         password = request.form.get("password")
-        print("email: {}".format(email))
-        print("password: {}".format(password))
 
         password_hash = sha256(password.encode("utf-8")).hexdigest()
         existing_user = db.query(User).filter_by(email=email, password=password_hash).first()
-        print("password_hash: {}".format(password_hash))
-        print("existing_user: {}".format(existing_user))
         if existing_user:
-            print("if od LOGINA: ")
             session_token = str(uuid.uuid4())
             existing_user.session_token = session_token
             existing_user.save()
-            print("session_token: {}".format(session_token))
 
             response = make_response(redirect(url_for("chat")))
             response.set_cookie("session", session_token)
-            print("response: {}".format(response))
             # ce je password_hash pravilen potem ok ce ni potem je password ali email napacen
             return response
         else:
@@ -68,17 +60,12 @@ def registration():
         return render_template("registration.html")
 
     elif request.method == "POST":
-        print("elif registration: ")
         email = request.form.get("user-email")
         password = request.form.get("password")
         repeat = request.form.get("repeat")
-        print("email: {}".format(email))
-        print("password: {}".format(password))
-        print("repeat: {}".format(repeat))
 
         existing_user = db.query(User).filter_by(email=email).first()
         # ce user ze obstaja napisi da ze obstaja
-        print("existing_user{}".format(existing_user))
         if existing_user:
             return "ERROR: This email already exists!"
         else:
@@ -88,8 +75,6 @@ def registration():
                 password_hash = sha256(password.encode("utf-8")).hexdigest()
                 new_user = User(email=email, password=password_hash)
                 new_user.save()
-                print("password: {}".format(password))
-                print("new_user: {}".format(new_user))
             else:
                 return "ERROR: Passwords do not match!"
     return redirect(url_for("home"))
