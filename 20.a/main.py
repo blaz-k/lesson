@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 from sqla_wrapper import SQLAlchemy
 from hashlib import sha256
 import uuid
@@ -24,6 +24,7 @@ db.create_all()
 def home():
 
     return render_template("index.html")
+
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -62,6 +63,28 @@ def registration():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "GET":
+        return render_template("login.html")
+
+    elif request.method == "POST":
+        email = request.form.get("user-email")
+        password = request.form.get("password")
+
+        password_hash = sha256(password.encode("utf-8")).hexdigest()
+        existing_user = db.query(User).filter_by(email=email, password=password_hash).first()
+
+        if existing_user:
+            session_token = str(uuid.uuid4())
+            existing_user.session_token = session_token
+            existing_user.save()
+
+            response = make_response(redirect(url_for("login")))
+            response.set_cookie("session", session_token)
+            return response
+
+        else:
+            return "Username or password is not correct"
+
     return render_template("login.html")
 
 
