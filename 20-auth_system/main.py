@@ -71,7 +71,6 @@ def registration():
         else:
             #ce user se ne obstaja, potem preglej ce se ujema password
             if password == repeat:
-                print("if stavek od registration else")
                 password_hash = sha256(password.encode("utf-8")).hexdigest()
                 new_user = User(email=email, password=password_hash)
                 new_user.save()

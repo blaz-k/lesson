@@ -12,6 +12,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String, unique=False)
+    session_token = db.Column(db.String, unique=False)
+
 
 
 app = Flask(__name__)
@@ -22,9 +24,13 @@ db.create_all()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    session_cookie = request.cookies.get("session")
 
+    if session_cookie:
+        user = db.query(User).filter_by(session_token=session_cookie).first()
+        if user:
+            return render_template("index.html", user=user)
     return render_template("index.html")
-
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -74,7 +80,7 @@ def login():
             existing_user.session_token = session_token
             existing_user.save()
 
-            response = make_response(redirect(url_for("login")))
+            response = make_response(redirect(url_for("home")))
             response.set_cookie("session", session_token)
             return response
 
@@ -82,10 +88,6 @@ def login():
             return "Username or password is not correct"
 
     return redirect(url_for("home"))
-
-
-
-
 
 
 if __name__ == '__main__':
