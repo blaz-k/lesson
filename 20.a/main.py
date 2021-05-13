@@ -25,10 +25,12 @@ db.create_all()
 @app.route("/", methods=["GET", "POST"])
 def home():
     session_cookie = request.cookies.get("session")
-
+    print("session cookie {}".format(session_cookie))
     if session_cookie:
+        print("if stavek od home")
         user = db.query(User).filter_by(session_token=session_cookie).first()
         if user:
+            print("if od userja")
             return render_template("index.html", user=user)
     return render_template("index.html")
 
