@@ -40,6 +40,22 @@ def dashboard():
     return "You are not logged in!!"
 
 
+@app.route("/dashboard/edit-profile", methods=["GET", "POST"])
+def dashboard_edit_profile():
+    session_cookie = request.cookies.get("session")
+
+    user = None
+
+    if session_cookie:
+        user = db.query(User).filter_by(session_token=session_cookie).first()
+
+        if not user:
+            return "You are not logged-in!!!"
+
+    if request.method == "GET":
+        return render_template("dashboard-edit-profile.html")
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     session_cookie = request.cookies.get("session")
