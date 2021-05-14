@@ -8,11 +8,13 @@
   <body>
 
     {% if user %}
+        <a href="/dashboard">Dashboard</a>
         <p>Welcome back <strong>{{user.email}}</strong></p>
     {% else %}
     <h3>Do you want to register or log-in?</h3>
         <a href="/registration">Registration</a> |
-        <a href="/login">Log-in</a>
+        <a href="/login">Log-in</a> |
+        <a href="/about">About</a>
     {% endif %}
   </body>
 </html>
