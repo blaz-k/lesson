@@ -23,6 +23,12 @@ app = Flask(__name__)
 
 db.create_all()
 
+@app.route("/dashboard/dashboard-all-users")
+def all_users():
+    users = db.query(User).all()
+
+    return render_template("dashboard-all-users.html", all_users=users)
+
 
 @app.route("/about")
 def about():
