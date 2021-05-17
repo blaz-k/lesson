@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>{{selected_user.first_name}} {{selected_user.last_name}}</title>
+  </head>
+
+  <body>
+    <a href="/dashboard/all-users">Back to users</a>
+    <br>
+    <h2>{{selected_user.first_name}} {{selected_user.last_name}}</h2>
+
+      <p>User details: </p>
+    <ul>
+      <li>Address: {{selected_user.address}}</li>
+    </ul>
+  </body>
+</html>

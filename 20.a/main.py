@@ -45,21 +45,39 @@ def all_users():
     return "You are not logged in!"
 
 
-@app.route("/dashboard/user-delete/<user_id>", methods=["POST"])
-def user_delete(user_id):
-    session_cookie = request.form.get("session")
+@app.route("/dashboard/user/<user_id>")
+def dashboard_user_details(user_id):
+    session_cookie = request.cookies.get("session")
 
     if session_cookie:
         user = db.query(User).filter_by(session_token=session_cookie).first()
 
         if user:
+            selected_user = db.query(User).filter_by(id=int(user_id)).first()
+            return render_template("dashboard-user-details.html", selected_user=selected_user)
+
+
+@app.route("/dashboard/user-delete/<user_id>", methods=["POST"])
+def user_delete(user_id):
+    session_cookie = request.cookies.get("session")
+    print("user_delete: ")
+
+    if session_cookie:
+        user = db.query(User).filter_by(session_token=session_cookie).first()
+        print("if session cookie: {}".format(session_cookie))
+
+        if user:
+            print("if user: ")
             user_to_delete = db.query(User).filter_by(id=int(user_id)).first()
+            print("if user_to_delete: {}".format(user_to_delete))
             user_to_delete.deleted = True
             user_to_delete.save()
 
             return redirect(url_for("all_users"))
 
     return "You are not allowed to delete, you are not logged in!!"
+
+
 
 
 @app.route("/dashboard", methods=["GET", "POST"])

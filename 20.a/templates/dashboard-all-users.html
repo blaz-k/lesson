@@ -11,7 +11,7 @@
         <h1>All users</h1>
 
         {% for user in all_users %}
-        <p>{{user.id}} {{user.first_name}} {{user.last_name}}
+        <p>{{user.id}} <a href="/dashboard/user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
             <form method="post" action="/dashboard/user-delete/{{user.id}}">
                 <button type="submit">Delete {{user.first_name}} {{user.last_name}}</button>
              </form>
