@@ -7,6 +7,20 @@
 
   <body>
     <a href="/dashboard">Back to dashboard</a>
-
+    <br>
+    <br>
+    <br>
+    <form action="/dashboard/edit-profile" method="post">
+        your first name is: <input type="name" name="first-name" value="{{user.first_name}}" placeholder="Enter your first name">
+        <br>
+        <br>
+        your last name is: <input type="name" name="last-name" value="{{user.last_name}}" placeholder="Enter your last name">
+        <br>
+        <br>
+        your address is: <input type="text" name="address" value="{{user.address}}" placeholder="Enter your address">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
   </body>
 </html>

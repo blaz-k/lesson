@@ -52,8 +52,11 @@ def dashboard_edit_profile():
         if not user:
             return "You are not logged-in!!!"
 
+    else:
+        return "You are not logged in"
+
     if request.method == "GET":
-        return render_template("dashboard-edit-profile.html")
+        return render_template("dashboard-edit-profile.html", user=user)
 
 
 @app.route("/", methods=["GET", "POST"])
