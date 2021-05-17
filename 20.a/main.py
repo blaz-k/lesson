@@ -160,6 +160,15 @@ def login():
     return redirect(url_for("home"))
 
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    session_cookie = request.cookies.get("session")
+    session_cookie.delete()
+
+    return make_response(redirect(url_for("home")))
+
+
+
 @app.route("/registration", methods=["GET", "POST"])
 def registration():
     if request.method == "GET":
