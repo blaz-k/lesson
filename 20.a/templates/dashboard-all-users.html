@@ -11,7 +11,12 @@
         <h1>All users</h1>
 
         {% for user in all_users %}
-        <p>{{user.first_name}} {{user.last_name}}</p>
+        <p>{{user.id}} {{user.first_name}} {{user.last_name}}
+            <form method="post" action="/dashboard/user-delete/{{user.id}}">
+                <button type="submit">Delete {{user.first_name}} {{user.last_name}}</button>
+             </form>
+        </p>
+        <hr>
         {% endfor %}
     </body>
 </html>

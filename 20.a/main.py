@@ -16,6 +16,7 @@ class User(db.Model):
     address = db.Column(db.String, unique=False)
     password = db.Column(db.String, unique=False)
     session_token = db.Column(db.String, unique=False)
+    deleted = db.Column(db.Boolean, default=False)
 
 
 app = Flask(__name__)
@@ -24,22 +25,41 @@ app = Flask(__name__)
 db.create_all()
 
 
-@app.route("/dashboard/dashboard-all-users")
-def all_users():
-    users = db.query(User).all()
-
-    return render_template("dashboard-all-users.html", all_users=users)
-
-
-@app.route("/dashboard/user-delete/<user-id>", methods=["POST"])
-def user_delete(user_id):
-    session_cookie = request.form.get("session")
-    
-
-
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+@app.route("/dashboard/all-users")
+def all_users():
+    session_cookie = request.cookies.get("session")
+
+    if session_cookie:
+        user = db.query(User).filter_by(session_token=session_cookie).first()
+
+        if user:
+            all_users = db.query(User).filter_by(deleted=False).all()
+
+            return render_template("dashboard-all-users.html", all_users=all_users)
+
+    return "You are not logged in!"
+
+
+@app.route("/dashboard/user-delete/<user_id>", methods=["POST"])
+def user_delete(user_id):
+    session_cookie = request.form.get("session")
+
+    if session_cookie:
+        user = db.query(User).filter_by(session_token=session_cookie).first()
+
+        if user:
+            user_to_delete = db.query(User).filter_by(id=int(user_id)).first()
+            user_to_delete.deleted = True
+            user_to_delete.save()
+
+            return redirect(url_for("all_users"))
+
+    return "You are not allowed to delete, you are not logged in!!"
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
