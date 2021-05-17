@@ -23,11 +23,18 @@ app = Flask(__name__)
 
 db.create_all()
 
+
 @app.route("/dashboard/dashboard-all-users")
 def all_users():
     users = db.query(User).all()
 
     return render_template("dashboard-all-users.html", all_users=users)
+
+
+@app.route("/dashboard/user-delete/<user-id>", methods=["POST"])
+def user_delete(user_id):
+    session_cookie = request.form.get("session")
+    
 
 
 @app.route("/about")
