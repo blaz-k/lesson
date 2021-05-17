@@ -160,7 +160,7 @@ def login():
     return redirect(url_for("home"))
 
 
-@app.route("/logout", methods=["GET", "POST"])
+@app.route("/logout", methods=["POST"])
 def logout():
 
     session_cookie = request.cookies.get("session")
