@@ -160,12 +160,15 @@ def login():
     return redirect(url_for("home"))
 
 
-@app.route("/logout", methods=["POST"])
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
-    session_cookie = request.cookies.get("session")
-    session_cookie.delete()
 
-    return make_response(redirect(url_for("home")))
+    session_cookie = request.cookies.get("session")
+    user = db.query(User).filter_by(session_token=session_cookie).first()
+    user.session_token = ""
+    user.save()
+
+    return render_template("logout.html")
 
 
 
