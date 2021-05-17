@@ -58,6 +58,19 @@ def dashboard_edit_profile():
     if request.method == "GET":
         return render_template("dashboard-edit-profile.html", user=user)
 
+    elif request.method == "POST":
+        first_name = request.form.get("first-name")
+        last_name = request.form.get("last-name")
+        address = request.form.get("address")
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.address = address
+        user.save()
+
+        return redirect(url_for("dashboard"))
+
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
