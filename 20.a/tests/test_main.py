@@ -37,11 +37,12 @@ def test_registration_page_post_get(client):
 
 def test_registration_page_post(client):
     response = client.post("/registration", data={"user-email": "b@b", "password": "b", "repeat": "b"})
+    assert b"Your registration was successful!" in response.data
 
 
 def test_dashboard_page(client):
     client.post("/registration", data={"user-email": "b@b", "password": "b", "repeat": "b"})
-
+    client.post("/login", data={"user-email": "b@b", "password": "b"}, follow_redirects=True)
     response = client.get("/dashboard")
 
     assert b"Your email is" in response.data

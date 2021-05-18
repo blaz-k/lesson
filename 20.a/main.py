@@ -179,7 +179,7 @@ def registration():
 
     elif request.method == "POST":
         #get all the names
-        email = request.form.get("user-email")
+        email = request.form.get("user-email").lower()
         password = request.form.get("password")
         repeat = request.form.get("repeat")
         first_name = request.form.get("first-name")
@@ -199,6 +199,7 @@ def registration():
                 # moramo zakamuflirat password
                 new_user = User(email=email, password=password_hash, first_name=first_name, last_name=last_name, address=address)
                 new_user.save()
+                return "Your registration was successful!"
             else:
                 return "Passwords do not match!"
 
