@@ -44,6 +44,18 @@ def test_registration_page_post(client):
     assert user is not None
 
 
+
+
+def test_registration_page_post_fail(client):
+    response = client.post("/registration", data={"user-email": "b@b", "password": "b", "repeat": "blaz"})
+
+    assert b"Passwords do not match!" in response.data
+
+    user = db.query(User).filter_by(email="b@b").first()
+    assert user is None
+
+
+
 def test_dashboard_page(client):
     client.post("/registration", data={"user-email": "b@b", "password": "b", "repeat": "b"})
     client.post("/login", data={"user-email": "b@b", "password": "b"}, follow_redirects=True)
