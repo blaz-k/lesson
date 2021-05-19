@@ -28,7 +28,7 @@ db.create_all()
 
 @app.route("/about")
 def about():
-    api_key = "c8ad993fe8b0621e7996d78c48fa971b"
+
     city = "Trzin,SI"
     api_url = "https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}".format(city, api_key)
 
