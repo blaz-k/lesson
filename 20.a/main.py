@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from sqla_wrapper import SQLAlchemy
 from hashlib import sha256
 import uuid
+import requests
 
 db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
 db = SQLAlchemy(db_url)
@@ -27,7 +28,13 @@ db.create_all()
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    api_key = "c8ad993fe8b0621e7996d78c48fa971b"
+    city = "Trzin,SI"
+    api_url = "https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}".format(city, api_key)
+
+    weather = requests.get(api_url).json()
+    print(weather)
+    return render_template("about.html", weather=weather)
 
 
 @app.route("/dashboard/all-users")

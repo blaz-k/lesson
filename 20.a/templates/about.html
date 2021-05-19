@@ -7,5 +7,21 @@
 
     <body>
         <h1>About us</h1>
+        <br>
+        <br>
+        <br>
+        <h3>Weather data</h3>
+        <ul>
+            <li><strong>City:</strong>  {{weather.name}}</li>
+            <li><strong>Country:</strong> {{weather.sys.country}} </li>
+            <li><strong>Weather:</strong> {{weather.weather[0].description}}</li>
+            <li><strong>Wind:</strong> {{weather.wind.speed}} m/s</li>
+            <li><strong>Temperature:</strong> {{weather.main.temp |int}} °C</li>
+            <li><strong>Temperature min:</strong> {{weather.main.temp_min | int}} °C</li>
+            <li><strong>Temperature max:</strong> {{weather.main.temp_max | int}} °C</li>
+            <li><strong>Pressure:</strong> {{weather.main.pressure}} mb</li>
+            <li><strong>Humidity:</strong> {{weather.main.humidity}} %</li>
+        </ul>
+
     </body>
 </html>

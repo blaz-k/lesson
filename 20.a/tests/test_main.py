@@ -62,3 +62,6 @@ def test_dashboard_page(client):
     response = client.get("/dashboard")
 
     assert b"Your email is" in response.data
+
+
+#def test_edit_profile_page(client):
