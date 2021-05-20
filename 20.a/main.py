@@ -4,7 +4,7 @@ from sqla_wrapper import SQLAlchemy
 from hashlib import sha256
 import uuid
 import requests
-from secret import api_key
+from secret import weather_api_key
 
 db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
 db = SQLAlchemy(db_url)
@@ -29,7 +29,7 @@ db.create_all()
 
 @app.route("/about")
 def about():
-
+    api_key = db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite")
     city = "Trzin,SI"
     api_url = "https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}".format(city, api_key)
 
