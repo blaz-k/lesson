@@ -65,3 +65,8 @@ def test_dashboard_page(client):
 
 
 #def test_edit_profile_page(client):
+
+
+
+def test_all_users_profile_page(client):
+    client.get("/dashboard/all-users")
