@@ -29,13 +29,20 @@ db.create_all()
 
 @app.route("/about")
 def about():
-    api_key = db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite")
-    city = "Trzin,SI"
-    api_url = "https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}".format(city, api_key)
+    try:
+        from secret import weather_api_key
+        api_key = weather_api_key
+    except:
+        api_key = os.getenv("WEATHER_API_KEY", None)
 
-    weather = requests.get(api_url).json()
-    print(weather)
-    return render_template("about.html", weather=weather)
+    if api_key is not None:
+        city = "Trzin,SI"
+        api_url = "https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}".format(city, api_key)
+
+        weather = requests.get(api_url).json()
+        return render_template("about.html", weather=weather)
+    else:
+        return "API KEY not found"
 
 
 @app.route("/dashboard/all-users")
